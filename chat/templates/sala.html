@@ -11,22 +11,23 @@
 </head>
 <body>
     <div class="container">
-        <textarea id="sala" cols="70" rows="15"></textarea><br>
-        <input id="texto" type="text" size"100"><br>
+        <br>
+        <textarea id="sala" cols="70" rows="15"></textarea><br><br>
+        <input id="texto" type="text" size="70"><br>
         {% buttons %}
+        <br>
         <input id="botao" type="button" value="Enviar">
         {% endbuttons %}
     </div>
 
-    {% bootstrap_javascript jquery="full" %}
+    {% bootstrap_javascript jquery='full' %}
 
     <script>
         var nome_sala = {{ nome_sala_json }};
 
         var chatSocket = new WebSocket (
             'ws://' + window.location.host +
-            '/ws/chat/' + nome_sala + '/'
-        );
+            '/ws/chat/' + nome_sala + '/');
 
         chatSocket.onmessage = function(e) {
             var dados = JSON.parse(e.data);
@@ -46,9 +47,9 @@
         };
 
         document.querySelector('#botao').onclick = function(e) {
-            var mensagem = document.querySelector('#texto');
+            var mensagemInput = document.querySelector('#texto');
             var mensagem = mensagemInput.value;
-            chatSocket.send(JSON.stringfy ({
+            chatSocket.send(JSON.stringify({
                 'mensagem': mensagem
             }));
             mensagemInput.value = '';
